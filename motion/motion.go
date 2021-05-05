@@ -10,11 +10,14 @@ package motion
 */
 import "C"
 import (
-	"github.com/sirupsen/logrus"
 	"gocv.io/x/gocv"
 	"unsafe"
 )
 
-func Detect(img gocv.Mat, dst gocv.Mat, diff int)  {
-	logrus.Info(C.Update_mhi(unsafe.Pointer(img.Ptr()), unsafe.Pointer(dst.Ptr()), C.int(diff)))
+func Detect(img gocv.Mat, dst gocv.Mat, diff int) (bool)  {
+	if C.Update_mhi(unsafe.Pointer(img.Ptr()), unsafe.Pointer(dst.Ptr()), C.int(diff)) == 0 {
+		return true
+	}
+
+	return false
 }
